@@ -2,11 +2,134 @@
 {% load static %} 
 {% block content %}
 
+<style>
+    .container {
+      font-family: "-apple-system", sans-serif;
+  }
+  
+  .container * {
+      font-size: 16px;
+  }
+
+    </style>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
       <h2>Order Summary</h2>
-      <table class="table">
+
+      <section class="h-100 h-custom">
+        <div class="container h-100 py-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    {{ cart_items }}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Product Image</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order_item in object.items.all %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>
+                                        <img src="{{ order_item.item.image.url }}" class="img-fluid rounded-3" style="width: 120px;" alt="{{ order_item.item.title }}">
+                                    </td>
+                                    <td>
+                                        <p class="mb-2">{{ order_item.item.title }}</p>
+                                        <p class="mb-0">{{ order_item.item.author }}</p>
+                                    </td>
+                                    <td>₹{{ order_item.item.price }}</td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                          <a href="{% url 'core:remove-single-item-from-cart' order_item.item.slug %}">
+
+                                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2" onclick="updateQuantity('{{ order_item.id }}', -1)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                          </a>
+    
+                                            <input id="quantity_{{ order_item.id }}" min="0" name="quantity" value="{{ order_item.quantity }}" type="number" class="form-control form-control-sm" style="width: 50px;" />
+
+                                            <a href="{% url 'core:add-to-cart' order_item.item.slug %}">
+                                            
+                                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2" onclick="updateQuantity('{{ order_item.id }}', 1)">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                          </a>
+                                        </div>
+                                    </td>
+                                    <td>₹{{ order_item.get_total_item_price }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6">Your cart is empty</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+    
+                    <div class="shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                <p class="mb-2">Subtotal</p>
+                                <p class="mb-2">₹{{ object.get_total }}</p>
+                            </div>
+    
+                            <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                <p class="mb-0">Shipping</p>
+                                <p class="mb-0">₹20</p> <!-- Assuming static shipping cost -->
+                            </div>
+    
+                            <hr class="my-4">
+    
+                            <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
+                                <p class="mb-2">Total (tax included)</p>
+                                <p class="mb-2">₹10</p>
+                            </div>
+    
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block btn-lg" onclick="window.location.href='/checkout'">
+                                <div class="d-flex justify-content-between">
+                                    <span>Checkout</span>
+                                    <span>₹{{ object.get_total|add:10|add:20 }}</span>
+                                </div>
+                            </button>
+    
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+      // Function to update quantity
+      {% comment %} function updateQuantity(itemId, change) {
+          const quantityInput = document.getElementById('quantity_' + itemId);
+          let newQuantity = parseInt(quantityInput.value) + change;
+          if (newQuantity < 0) {
+              newQuantity = 0; // Ensure quantity doesn't go below 0
+          }
+          quantityInput.value = newQuantity;
+          // You may need to implement AJAX to update the quantity in the server-side cart data
+      } {% endcomment %}
+  </script>
+
+
+
+
+
+
+      {% comment %} <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -34,10 +157,10 @@
             </td>
             <td>
               {% if order_item.item.discount_price %}
-                  ${{ order_item.get_total_discount_item_price}}
-                  <span class="badge badge-primary">  Saving ${{ order_item.get_amount_saved }}</span>
+                  ₹{{ order_item.get_total_discount_item_price}}
+                  <span class="badge badge-primary">  Saving ₹{{ order_item.get_amount_saved }}</span>
               {% else %}
-                  ${{ order_item.get_total_item_price}}
+                  ₹{{ order_item.get_total_item_price}}
               {% endif %}
               <a style="color: red" href="{% url 'core:remove-from-cart' order_item.item.slug %}">
               	<i class="fas fa-trash float-right"></i>
@@ -53,13 +176,13 @@
         {% if object.coupon %}
         <tr>
           <td colspan="5"><b>Coupon : </b></td>
-          <td>- ${{ object.coupon.amount }}</td>
+          <td>- ₹{{ object.coupon.amount }}</td>
         </tr>
         {% endif%}
         {% if object.get_total %}
         <tr>
         	<td colspan="5"><b>Order Total : </b></td>
-        	<td><b>${{ object.get_total }}</b></td>
+        	<td><b>₹{{ object.get_total }}</b></td>
         </tr>
         <tr>
         	<td colspan="5">
@@ -69,7 +192,7 @@
         	</td>
         </tr>
         {% endif %}
-      </table>
+      </table> {% endcomment %}
     </div>
   </div>
 </div>

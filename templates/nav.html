@@ -10,6 +10,17 @@
 	.topbar a:hover{
 		color: black;
 	}
+	.sub-menu {
+        display: none; /* Hide the submenu by default */
+        transition: max-height 10s ease; /* Add transition for smooth animation */
+        overflow: hidden; /* Hide any content that overflows the submenu */
+        max-height: 0; /* Set max-height to 0 to make it hidden */
+    }
+
+    .sub-menu.show {
+        display: block; /* Show the submenu when it has the 'show' class */
+        max-height: 200px; /* Set max-height to a value large enough to display the submenu content */
+    }
 </style>
 <!-- Header -->
 <header class="header1">
@@ -58,8 +69,8 @@
 							
 							{% else %}
 							<li>
-								<a href="#">Login</a>
-								<ul class="sub_menu">
+								<a href="{% url 'account_login' %}">Login</a>
+								<ul class="sub_menu sub-menu">
 									<li><a href="{% url 'account_login' %}">Login</a></li>
 									<li><a href="{% url 'account_signup' %}">SignUp</a></li>
 								</ul>
@@ -170,7 +181,7 @@
 			<nav class="side-menu">
 				<ul class="main-menu">
 					<li class="item-topbar-mobile p-l-10">
-						<div class="topbar-social-mobile">
+						<div class="topbar-social-mobile" style="display:none;">
 							<a href="#" class="topbar-social-item fa fa-facebook"></a>
 							<a href="#" class="topbar-social-item fa fa-instagram"></a>
 							<a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
@@ -191,19 +202,19 @@
 
 					{% if request.user.is_authenticated %}
 					<li class="item-menu-mobile">
-						<a href="{% url 'core:order-summary' %}">Cart<span class="badge badge-dark">{{ request.user|cart_item_count }}</span></a>
+						<a href="{% url 'core:order-summary' %}">Cart<span class="badge badge-dark" style="margin-left:5px">{{ request.user|cart_item_count }}</span></a>
 					</li>
 					<li class="item-menu-mobile">
 						<a href="{% url 'account_logout' %}">Logout</a>
 					</li>
 					{% else %}
 					<li class="item-menu-mobile">
-						<a href="#">Login</a>
+						<a href="{% url 'account_login' %}" id="loginLink">Login</a>
 						<ul class="sub-menu">
 							<li><a href="{% url 'account_login' %}">Login</a></li>
 							<li><a href="{% url 'account_signup' %}">SignUp</a></li>
 						</ul>
-						<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+						{% comment %} <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i> {% endcomment %}
 					</li>
 					{% endif %}
 
@@ -211,3 +222,11 @@
 			</nav>
 		</div>
 	</header>
+
+	<script>
+		document.getElementById("loginLink").addEventListener("click", function(event) {
+			event.preventDefault(); // Prevent default link behavior
+			var subMenu = this.nextElementSibling; // Get the next sibling, which is the <ul> element
+			subMenu.classList.toggle("show"); // Toggle the "show" class to display/hide the submenu
+		});
+	</script>

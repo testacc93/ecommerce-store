@@ -1056,14 +1056,14 @@ li.sale-noti > a {
 .side-menu .main-menu {margin-bottom: 0;}
 
 .item-menu-mobile {
-  background-color: #e65540;
+  background-color: #dde6da;
 }
 
 .side-menu .main-menu > li > a {
   padding-left: 20px;
   font-family: Montserrat-Regular;
   font-size: 15px;
-  color: white;
+  color: black;
   line-height: 2.86;
 }
 
@@ -1107,7 +1107,7 @@ li.sale-noti > a {
 
 .side-menu .sub-menu > li {
   padding-left: 12px;
-  padding-top: 
+  padding-top: 20px
 }
 
 .side-menu .sub-menu a:hover {
@@ -2448,4 +2448,8 @@ input.num-product::-webkit-inner-spin-button {
   background: #6520ff;
   }
 
-  
+  .alert{
+    font-size: 14px;
+    font-family: "-apple-system", sans-serif;
+
+  }

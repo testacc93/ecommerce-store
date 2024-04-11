@@ -14,7 +14,9 @@ from .views import (
     CategoryView,
     stripe_config,
     create_checkout_session,
-    MyOrders
+    MyOrders,
+    thank,
+    get_phonepe_creds
 )
 
 app_name = 'core'
@@ -36,5 +38,10 @@ urlpatterns = [
     path('config/', stripe_config),  # new
     path('create-checkout-session/', create_checkout_session), # new
     path('my-orders/', MyOrders.as_view(), name='my-orders'), # new
+    path('order-confirm/', thank,  name='order-confirm'), # new
 
+    path('phonepe/', get_phonepe_creds,  name='phonepe'), # new
+
+
+    
 ]

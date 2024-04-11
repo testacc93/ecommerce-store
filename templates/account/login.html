@@ -14,13 +14,33 @@
     border: 1px solid #ced4da !important;
 
 }
+
+
+#id_remember {
+  margin-left:-20px;
+  margin-bottom:5px;
+  display:none;
+}
+.form-check-label {
+  display:none;
+
+}
+
+.container {
+  font-family: "-apple-system", sans-serif;
+}
+
+.container * {
+  font-size: 16px;
+  overflow: hidden;
+}
 </style>
 
 
 <div class="container">
   <div class="row">
 
-    <div class="col-md-6 mt-5 offset-3">
+    <div class="col-md-6 mt-5 offset-3" style="margin-left:auto; margin-right:auto;">
       <h1>{% trans "Sign In" %}</h1>
 
 {% get_providers as socialaccount_providers %}
@@ -54,13 +74,14 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p> {% endco
 
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <a class="btn btn-outline-dark" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+  <button class="btn btn-primary mb-5" type="submit">{% trans "Sign In" %}</button>
+  <a class="btn btn-outline-dark mb-5" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
 </form>
 
     </div>
   </div>
 </div>
+
 
 
 {% endblock %}

@@ -139,7 +139,7 @@ class Order(models.Model):
     '''
 
     def __str__(self):
-        return self.user.username
+        return str(self.id)
 
     def get_total(self):
         total = 0
@@ -160,8 +160,8 @@ class BillingAddress(models.Model):
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
     default = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.user.username
+    # def __str__(self):
+    #     return "{}'s address is {} {} {}".format(self.user, self.street_address, self.apartment_address, self.zip )
 
     class Meta:
         verbose_name_plural = 'BillingAddresses'
@@ -175,7 +175,7 @@ class Payment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
+        return str(self.user) + " paid " + str(self.amount)
 
 
 class Coupon(models.Model):

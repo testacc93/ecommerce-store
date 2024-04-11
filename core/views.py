@@ -7,17 +7,51 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect
 from django.utils import timezone
+import stripe.webhook
 from .forms import CheckoutForm, CouponForm, RefundForm
 from .models import Item, OrderItem, Order, BillingAddress, Payment, Coupon, Refund, Category
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-
-# Create your views here.
+from django.http.response import JsonResponse # new
+from django.views.decorators.csrf import csrf_exempt # new
+import stripe
 import random
 import string
-import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
+from django.contrib.auth.models import User
 
+
+@csrf_exempt
+def thank(request):
+    order = Order.objects.get(id=request.GET.get('order'))
+    payment = Payment()
+    payment.stripe_charge_id = 'sss'
+    user = User.objects.get(id=order.user_id)
+    payment.user = user
+    payment.amount = order.get_total()
+    payment.save()
+    order.ordered = True
+    order.payment = payment
+    order.ref_code = create_ref_code()
+    order.save()
+    return render(request, 'thankyou.html')
+
+def get_phonepe_creds(request):
+
+    data = {
+                'merchantId': 'PGTESTPAYUAT',
+                'merchantTransactionId': 'MT785058104',
+                'merchantUserId': 'PGTESTPAYUAT',
+                # amount: amount * 100,
+                # 'redirectUrl': `http://127.0.0.1:8000/order-confirm/?order=${order}`,
+                'redirectMode': 'POST',
+                'callbackUrl': 'www.facebook.com',
+                'mobileNumber': '9825454588',
+                'paymentInstrument': {
+                  'type': 'PAY_PAGE'
+                }
+              }
+    return JsonResponse({"data":data})
 
 def create_ref_code():
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
@@ -43,11 +77,11 @@ class PaymentView(View):
         token = self.request.POST.get('stripeToken')
         amount = int(order.get_total() * 100)
         try:
-            charge = stripe.Charge.create(
-                amount=amount,  # cents
-                currency="usd",
-                source=token
-            )
+            # charge = stripe.Charge.create(
+            #     amount=amount,  # cents
+            #     currency="usd",
+            #     source=token
+            # )
             # create the payment
             payment = Payment()
             payment.stripe_charge_id = charge['id']
@@ -127,7 +161,6 @@ class MyOrders(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
             order = Order.objects.filter(user=self.request.user, ordered=True)
-            print("all ordeers===============", order)
             context = {
                 'orders': order
             }
@@ -174,7 +207,7 @@ class CheckoutView(View):
                 'form': form,
                 'couponform': CouponForm(),
                 'order': order,
-                'DISPLAY_COUPON_FORM': True
+                'DISPLAY_COUPON_FORM': True,
             }
             return render(self.request, "checkout.html", context)
 
@@ -186,7 +219,6 @@ class CheckoutView(View):
         form = CheckoutForm(self.request.POST or None)
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
-            print(self.request.POST)
             if form.is_valid():
                 street_address = form.cleaned_data.get('street_address')
                 apartment_address = form.cleaned_data.get('apartment_address')
@@ -299,7 +331,6 @@ def remove_from_cart(request, slug):
         # add a message saying the user dosent have an order
         messages.info(request, "u don't have an active order.")
         return redirect("core:product", slug=slug)
-    return redirect("core:product", slug=slug)
 
 
 @login_required
@@ -343,27 +374,22 @@ def get_coupon(request, code):
         messages.info(request, "This coupon does not exist")
         return redirect("core:checkout")
 
-from django.http.response import JsonResponse # new
-from django.views.decorators.csrf import csrf_exempt # new
-import stripe
-
 @csrf_exempt
 def stripe_config(request):
-    print("---------------------config---------------")
     if request.method == 'GET':
         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
         return JsonResponse(stripe_config, safe=False)
 
 @csrf_exempt
 def create_checkout_session(request):
-    print("dwufdb")
     if request.method == 'GET':
         amount = request.GET.get('amount')
-        domain_url = 'http://127.0.0.1:8002/'
+
+        domain_url = settings.DOMAIN_URL
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
             checkout_session = stripe.checkout.Session.create(
-                success_url="http://127.0.0.1:5500/cart.html",
+                success_url="{}/order-confirm/".format(settings.DOMAIN_URL),
                 cancel_url=domain_url + 'cancelled/',
                 payment_method_types=['card'],
                 mode='payment',
@@ -373,7 +399,7 @@ def create_checkout_session(request):
                             'currency': 'inr',
                             'unit_amount': amount,
                             'product_data': {
-                                'name': 'T-shirt',
+                                'name': 'Shirts',
                             },
                         },
                         'quantity': 1,
@@ -382,7 +408,6 @@ def create_checkout_session(request):
             )
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:
-            print("srtrrr", str(e))
             return JsonResponse({'error': str(e)})
 
 class AddCouponView(View):
@@ -399,7 +424,7 @@ class AddCouponView(View):
                 return redirect("core:checkout")
 
             except ObjectDoesNotExist:
-                messages.info(request, "You do not have an active order")
+                messages.info(self.request, "You do not have an active order")
                 return redirect("core:checkout")
 
 
