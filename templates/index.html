@@ -192,12 +192,12 @@ body {
 			
 		}
 
-		{% comment %} .zoom-img {
-            width: 300px;
-            height: 300px;
+		.zoom-img {
+            {% comment %} width: 300px;
+            height: 300px; {% endcomment %}
             overflow: hidden;
             margin: 0 auto;
-        } {% endcomment %}
+        }
 
         .zoom-img img {
             width: 100%;
@@ -322,7 +322,7 @@ body {
 				
 				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
 					<div class="zoom-img pos-relative">
-						<img src="{{prod.image.url}}" class="ban_img">
+						<img style="height:600px" src="{{prod.image.url}}" class="ban_img">
 						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
 							<br><br><br><br><br>
 							<br><br><br><br><br>
@@ -395,7 +395,7 @@ body {
 		<div class="">
 			<div class="row" style="margin-left:auto; margin-right:auto;">
 				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto p-t-15 p-b-15">
-					<div class="zoom-img pos-relative">
+					<div class="pos-relative">
 						<img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/7324885/2019/12/4/f383d293-415a-4606-ab12-cc07ab603ec41575437710624-HIGHLANDER-Men-Brown--Black-Slim-Fit-Checked-Casual-Shirt-81-1.jpg" alt="IMG-BANNER" class="ban5_img">
 
 						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
