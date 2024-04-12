@@ -191,6 +191,22 @@ body {
 			color: black !important;
 			
 		}
+
+		{% comment %} .zoom-img {
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            margin: 0 auto;
+        } {% endcomment %}
+
+        .zoom-img img {
+            width: 100%;
+            transition: 0.5s all ease-in-out;
+        }
+
+        .zoom-img:hover img {
+            transform: scale(1.5);
+        }
 	</style>
 
 	<!-- New Product -->
@@ -204,7 +220,7 @@ body {
 		<div class="container">
 			<div class="sec-title p-b-60">
 				<h3 class="m-text5 t-center">
-					Running Products
+					Running Productsss
 				</h3>
 			</div>
 
@@ -218,7 +234,7 @@ body {
 						<!-- Block2 -->
 						<div class="block2">
 							
-							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-label{{item.get_label_display}}">
+							<div class="block2-img zoom-img wrap-pic-w of-hidden pos-relative block2-label{{item.get_label_display}}">
 								<a href="{{item.get_absolute_url}}">
 								<img src="{{item.image.url}}" alt="IMG-PRODUCT" 
 								style="height: 400px; width:100%; "></a>
@@ -305,7 +321,7 @@ body {
 				{% for prod in prod_category_value %}
 				
 				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
+					<div class="zoom-img pos-relative">
 						<img src="{{prod.image.url}}" class="ban_img">
 						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
 							<br><br><br><br><br>
@@ -379,7 +395,7 @@ body {
 		<div class="">
 			<div class="row" style="margin-left:auto; margin-right:auto;">
 				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
+					<div class="zoom-img pos-relative">
 						<img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/7324885/2019/12/4/f383d293-415a-4606-ab12-cc07ab603ec41575437710624-HIGHLANDER-Men-Brown--Black-Slim-Fit-Checked-Casual-Shirt-81-1.jpg" alt="IMG-BANNER" class="ban5_img">
 
 						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
