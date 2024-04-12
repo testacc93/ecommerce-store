@@ -144,6 +144,15 @@ class HomeView(ListView):
     queryset = Item.objects.filter(is_active=True)
     context_object_name = 'items'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        products = {}
+        for category in context['categories']:
+            products[category.title] = Item.objects.filter(category=category)[0:2]
+        context['products_categories'] = products
+        return context
+
 
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
@@ -155,7 +164,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return render(self.request, 'order_summary.html', context)
         except ObjectDoesNotExist:
             messages.error(self.request, "You do not have an active order")
-            return redirect("/")
+            # return redirect("/")
         
 class MyOrders(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
@@ -188,12 +197,14 @@ class ItemDetailView(DetailView):
 class CategoryView(View):
     def get(self, *args, **kwargs):
         category = Category.objects.get(slug=self.kwargs['slug'])
+        category_list = Category.objects.all()
         item = Item.objects.filter(category=category, is_active=True)
         context = {
             'object_list': item,
             'category_title': category,
             'category_description': category.description,
-            'category_image': category.image
+            'category_image': category.image,
+            'categories': category_list
         }
         return render(self.request, "category.html", context)
 
