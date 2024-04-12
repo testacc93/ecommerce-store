@@ -325,6 +325,9 @@ iframe {
     bottom: 15px;
     right: 15px;
   }
+  .row {
+    width: 100%;
+  }
 }
 
 /*[ Restyle Select2 ]
@@ -1125,6 +1128,7 @@ li.sale-noti > a {
   .wrap-side-menu {
     display: none;
   }
+  
 }
 
 /* ------------------------------------ */

@@ -61,6 +61,118 @@
 
 </style>
 
+<style>
+	@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  line-height: 1.6;
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  height: 50vh;
+  width: 95vw;
+  margin-left:auto;
+  margin-right:auto;
+
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.slide.current {
+  opacity: 1;
+}
+
+.slide .content {
+  position: absolute;
+  bottom: 30px;
+  left: -550px;
+  opacity: 0;
+  background-color: rgba(244, 237, 237, 0.5);
+  color: #333;
+  padding: 35px;
+  border-radius: 50px;
+  transition: 0.2s ease-in-out;
+}
+
+.slide .content h1 {
+  margin-bottom: 10px;
+}
+
+.slide.current .content {
+  opacity: 1;
+  transform: translateX(600px);
+  transition: all 0.7s ease-in-out 0.3s;
+}
+
+.buttons button#next {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+}
+
+.buttons button#prev {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+}
+
+.buttons button {
+  border: 2px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  padding: 13px 15px;
+  border-radius: 50%;
+  outline: none;
+  transition: 0.2s ease-in-out;
+}
+
+.buttons button:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+@media(max-width: 500px) {
+  .slide .content {
+    bottom: -300px;
+    left: 0;
+  }
+
+  .slide.current .content {
+    transform: translateY(-300px);
+  }
+}
+
+/* Background images */
+.slide:first-child {
+  background: url('https://media.istockphoto.com/id/1293366109/photo/this-one-match-perfect-with-me.jpg?b=1&s=612x612&w=0&k=20&c=5T9d2q0viYR1DVcq7FGllJpVTkSrfdpuLHODWiH1a5I=') no-repeat center center/cover;
+}
+
+.slide:nth-child(2) {
+  background: url("https://www.dfupublications.com/images/2023/07/27/Growth%20of%20India's%20Kids'%20Wear%20$24.5B%20by%202028_large.jpeg") no-repeat center center/cover;
+}
+
+
+	</style>
+
 	<!-- Slide1 -->
 	<section class="slide1">
 		<div class="wrap-slick1">
@@ -92,7 +204,7 @@
 		<div class="container">
 			<div class="sec-title p-b-60">
 				<h3 class="m-text5 t-center">
-					Men's Formals
+					All Products
 				</h3>
 			</div>
 
@@ -108,8 +220,8 @@
 							
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-label{{item.get_label_display}}">
 								<a href="{{item.get_absolute_url}}">
-								<img src="https://iqonbd.com/wp-content/uploads/2022/07/MBK02220-scaled.jpg" alt="IMG-PRODUCT" 
-								style="height: 370px; width:100%; "></a>
+								<img src="{{item.image.url}}" alt="IMG-PRODUCT" 
+								style="height: 270px; width:100%; "></a>
 							</div>
 
 							<div class="block2-txt p-t-20">
@@ -159,7 +271,7 @@
 		}
 
 		.ban_img{
-			height: 380px;
+			height: 600px;
 			width: 100%;
 		}
 		.ban5_img{
@@ -185,7 +297,7 @@
 			Men's Casuals
 		</h3>
 		<div class="">
-			<div class="row" style="width:60%; margin-left:auto; margin-right:auto">
+			<div class="row" style="width:100%; margin-left:auto; margin-right:auto">
 				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
 					<div class="pos-relative">
 						<img src="https://rukminim2.flixcart.com/image/850/1000/jvfk58w0/shirt/r/5/y/m-2031855589-true-blue-original-imafgcjjqgdagrbw.jpeg?q=90&crop=false" alt="IMG-BANNER" class="ban_img">
@@ -258,72 +370,32 @@
 	
 </section>
 
+<section class="newproduct bgwhite p-t-45 p-b-105">
+	<h3 class="m-text5 t-center mb-5">
+		All Categories
+	</h3>
+	<a href='/shop/'><div class="slider">
+		<div class="slide current">
+		  <div class="content">
+			<h1>Men's Wear</h1>
+		  </div>
+		</div>
+		<div class="slide">
+		  <div class="content">
+			<h1>Kids' Wear</h1>
+		  </div>
+		</div>
+	</div>
+	</a>
+	  <div class="buttons">
+		<button id="prev"><i class="fas fa-arrow-left"></i></button>
+		<button id="next"><i class="fas fa-arrow-right"></i></button>
+	  </div>
+</section>
+
 <!-- ------------------Banner4  end ------------------------>
 
-	<!-- ------------------Banner3  start ------------------------>
-
-	{% comment %} <section class="banner2 bg5 p-t-55 p-b-55">
-		<h3 class="m-text5 t-center">
-			Training's Essentials
-		</h3>
-		<div class="">
-			<div class="row">
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/24fb4f53-ba07-46fa-934e-bcb35b0cc021/nike-just-do-it.jpg" alt="IMG-BANNER" class="ban_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<span class="m-text9 p-t-45 fs-20-sm">
-								SuperRe Go
-							</span>
-
-							<br>
-							
-
-								<div class="wrap-btn-slide1 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite  trans-0-4">
-								Shop Now
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="pos-relative">
-						<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/f33275db-0cbb-406a-8ac9-430ff07433b7/nike-just-do-it.jpg"  alt="IMG-BANNER" class="ban_img">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							<span class="m-text9 p-t-45 fs-20-sm" style="color: black;">
-								Bras and Leggings
-							</span>
-
-							<br>
-							
-
-								<div class="wrap-btn-slide2 w-size1 animated" data-appear="slideInUp">
-						
-							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2  trans-0-4" style="background-color: black; color:white;">
-								Shop Now
-							</a>
-						</div>
-
-						</div>
-					</div>
-				</div>
-
-			
-			</div>
-		</div>
-	</section> {% endcomment %}
-	<!-- ------------------Banner3  end ------------------------>
-
+	
 	<!-- ------------------Banner5  start ------------------------>
 
 	<section class="banner2 bg5 p-t-55 p-b-55">
@@ -331,7 +403,7 @@
 			More Products
 		</h3>
 		<div class="">
-			<div class="row" style="width:90%; margin-left:auto; margin-right:auto;">
+			<div class="row" style="margin-left:auto; margin-right:auto;">
 				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto p-t-15 p-b-15">
 					<div class="pos-relative">
 						<img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/7324885/2019/12/4/f383d293-415a-4606-ab12-cc07ab603ec41575437710624-HIGHLANDER-Men-Brown--Black-Slim-Fit-Checked-Casual-Shirt-81-1.jpg" alt="IMG-BANNER" class="ban5_img">
@@ -444,7 +516,77 @@
 	</section>
 
 
+	<script>
+		$(document).ready(function(){
+			$(".wish-icon i").click(function(){
+				$(this).toggleClass("fa-heart fa-heart-o");
+			});
+		});	
+		const slides = document.querySelectorAll('.slide');
+const next = document.querySelector('#next');
+const prev = document.querySelector('#prev');
+const auto = true;
+const intervalTime = 5000;
+let slideInterval;
 
+const nextSlide = () => {
+  // Get current class
+  const current = document.querySelector('.current');
+  // remove current class
+  current.classList.remove('current');
+  // Check for next slide
+  if(current.nextElementSibling) {
+    // Add current to next sibling
+    current.nextElementSibling.classList.add('current');
+  } else {
+    // Add current to start
+    slides[0].classList.add('current');
+  }
+  setTimeout(() => current.classList.remove('current'));
+};
+
+const prevSlide = () => {
+  // Get current class
+  const current = document.querySelector('.current');
+  // remove current class
+  current.classList.remove('current');
+  // Check for prev slide
+  if(current.previousElementSibling) {
+    // Add current to next sibling
+    current.previousElementSibling.classList.add('current');
+  } else {
+    // Add current to last
+    slides[slides.length - 1].classList.add('current');
+  }
+  setTimeout(() => current.classList.remove('current'));
+};
+
+// Button events
+next.addEventListener('click', e => {
+  nextSlide();
+  if(auto) {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, intervalTime);
+
+  }
+});
+
+prev.addEventListener('click', e => {
+  prevSlide();
+  if(auto) {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, intervalTime);
+
+  }
+
+});
+
+// Auto slide
+if(auto) {
+  // Run next slide at interval time
+  slideInterval = setInterval(nextSlide, intervalTime);
+}
+		</script>
 
 	
 

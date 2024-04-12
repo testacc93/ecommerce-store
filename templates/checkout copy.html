@@ -1,0 +1,262 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+   <style>
+    .container {
+      font-family: "-apple-system", sans-serif;
+  }
+  
+  .container * {
+      font-size: 16px;
+  }
+
+    </style>
+
+    <div class="container">
+      <div class="py-5 text-center">
+        <h1 style="font-size:30px">Check<span style="font-size:30px; color:blue;">out</span></h1>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge badge-secondary badge-pill">Your cart</span>
+            <span class="badge badge-secondary badge-pill">Qty</span>
+          </h4>
+          <ul class="list-group mb-3">
+            {% comment %} {{ order.items.all }} {% endcomment %}
+            {% for item in order.items.all %}
+            {% comment %} {% for order_item in order %} {% endcomment %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">{{ item.item }}</h6>
+                <small class="text-muted">{{ item.item.description_short }}</small>
+              </div>
+              <span class="text-muted">{{ item.quantity }}</span>
+            </li>
+            {% endfor %}
+            {% comment %} {% endfor %} {% endcomment %}
+            
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (INR)</span>
+              <strong>₹{{ order.get_total }}</strong>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="col-md-8 order-md-1">
+          <h4 class="mb-3">Billing address</h4>
+          <form onsubmit="return false;" class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Valid first name is required.
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email">Email <span class="text-muted">(Optional)</span></label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+              <div class="invalid-feedback">
+                Please enter your shipping address.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+            </div>
+
+            <div class="row">
+              <div class="col-md-5 mb-3">
+                <label for="country">Country</label>
+                <select class="custom-select d-block w-100" id="country" required>
+                  <option value="">Choose...</option>
+                  <option>United States</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid country.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="state">State</label>
+                <select class="custom-select d-block w-100" id="state" required>
+                  <option value="">Choose...</option>
+                  <option>California</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="zip">Zip</label>
+                <input type="text" class="form-control" id="zip" placeholder="" required>
+                <div class="invalid-feedback">
+                  Zip code required.
+                </div>
+              </div>
+            </div>
+            <hr class="mb-4">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="same-address">
+              <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="save-info">
+              <label class="custom-control-label" for="save-info">Save this information for next time</label>
+            </div>
+            <hr class="mb-4">
+
+            <h4 class="mb-3">Payment</h4>
+
+            <div class="d-block my-3">
+              <div class="custom-control custom-radio">
+                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                <label class="custom-control-label" for="credit">Stripe</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="scan" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                <label class="custom-control-label" for="scan">Phonepe</label>
+              </div>
+            </div>
+            <hr class="mb-4">
+            
+            <button class="btn btn-primary btn-lg btn-block mb-5" id="submit" >Pay</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+  (function() {
+    'use strict';
+
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          else{
+            if(document.getElementById('credit').checked)
+            {
+
+              const amount = {{ order.get_total }};
+              fetch("/config/")
+                .then((result) => { return result.json(); })
+                .then((data) => {
+                  const stripe = Stripe(data.publicKey);
+                  fetch(`/create-checkout-session?amount=${amount * 100}`)
+                    .then((result) => { return result.json(); })
+                    .then((data) => {
+                       return stripe.redirectToCheckout({ sessionId: data.sessionId });
+                    })
+                    .then((res) => {
+                      console.log("sssssss=====", res);
+                    });
+                });
+            }
+            if(document.getElementById('scan').checked){
+
+              const amount = {{ order.get_total }};
+              const order = {{ order }}
+              const merchantKey = '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
+              
+              const data = {
+                merchantId: 'PGTESTPAYUAT',
+                merchantTransactionId: 'MT785058104',
+                merchantUserId: 'PGTESTPAYUAT',
+                amount: amount * 100,
+                redirectUrl: `http://127.0.0.1:8000/order-confirm/?order=${order}`,
+                redirectMode: 'POST',
+                callbackUrl: 'www.facebook.com',
+                mobileNumber: '9825454588',
+                paymentInstrument: {
+                  type: 'PAY_PAGE'
+                }
+              };
+              const payloadMain = btoa(JSON.stringify(data));
+              const payload = payloadMain + '/pg/v1/pay' + merchantKey;
+              const checksum = CryptoJS.SHA256(payload).toString(CryptoJS.enc.Hex) + '###1';
+              console.log("sasasasa",checksum)
+              fetch('https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-VERIFY': checksum,
+                  'accept': 'application/json'
+                },
+                body: JSON.stringify({ request: payloadMain })
+              })
+              .then(response => response.json())
+              .then(responseData => {
+                console.log("the resposne", responseData)
+                const url = responseData.data.instrumentResponse.redirectInfo.url;
+                window.location.href = url;
+              })
+              .catch(error => {
+                console.log("yhe errrorr", error)
+                const err = 'Fetch Error: ' + error.message;
+                // window.location.href = 'www.telegram.com';
+              });
+            }
+
+
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+
+function submit(){
+
+  
+}
+  
+</script>
+
+{% endblock content %}
