@@ -149,8 +149,12 @@ class HomeView(ListView):
         context['categories'] = Category.objects.all()
         products = {}
         for category in context['categories']:
-            products[category.title] = Item.objects.filter(category=category)[0:2]
+            products[category.title] = Item.objects.filter(category=category)
         context['products_categories'] = products
+        for cate in context['products_categories'].keys():
+            print("----------------------------")
+            print(cate)
+
         return context
 
 

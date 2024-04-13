@@ -170,6 +170,35 @@ body {
   background: url("https://www.dfupublications.com/images/2023/07/27/Growth%20of%20India's%20Kids'%20Wear%20$24.5B%20by%202028_large.jpeg") no-repeat center center/cover;
 }
 
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	max-width: 300px;
+	margin: auto;
+	text-align: center;
+	font-family: arial;
+  }
+  
+  .price {
+	color: grey;
+	font-size: 22px;
+  }
+  
+  .card button {
+	border: none;
+	outline: 0;
+	padding: 12px;
+	color: black;
+	background-color: #748e8bab;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+	font-size: 18px;
+  }
+  
+  .card button:hover {
+	opacity: 0.7;
+  }
+
 
 	</style>
 
@@ -201,11 +230,11 @@ body {
 
         .zoom-img img {
             width: 100%;
-            transition: 0.5s all ease-in-out;
+            transition: 0.2s all ease-in-out;
         }
 
         .zoom-img:hover img {
-            transform: scale(1.5);
+            transform: scale(1.2);
         }
 	</style>
 
@@ -317,28 +346,21 @@ body {
 			{% comment %} {{ prod_category_value }} {% endcomment %}
 		</h3>
 		<div class="">
-			<div class="row" style="width:100%; margin-left:auto; margin-right:auto">
+			<div class="row" style="width: 100%; margin-left: auto; margin-right: auto">
 				{% for prod in prod_category_value %}
-				
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="zoom-img pos-relative">
-						<img style="height:600px" src="{{prod.image.url}}" class="ban_img">
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<br><br><br><br><br>
-							<br><br><br><br><br>
-							
-							<br>
-								<div class="wrap-btn-slide1 w-size1 animated" data-appear="slideInUp">
-							<a href="/category/{{prod_category.slug}}" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite  trans-0-4">
-								Shop Now
-							</a>
-						</div>
-
+				<div class="col-lg-3 col-md-4 col-sm-6"> <!-- Adjusted grid classes for 4 elements in a row -->
+					<div class="m-l-r-auto p-t-15 p-b-15">
+						<div class="zoom-img pos-relative">
+							<div class="card">
+								<a href="/product/{{prod.slug}}"><img src="{{prod.image.url}}" alt="Denim Jeans" style="width: 100%; min-height:300px; max-height: 300px"></a>
+								<p class="price">{{prod.price}}</p>
+								<p>{{prod.title}}</p>
+								<p><button>Add to Cart</button></p>
+							</div>
 						</div>
 					</div>
 				</div>
 				{% endfor %}
-
 			</div>
 		</div>
 	</section>
@@ -362,24 +384,51 @@ body {
 	
 	
 </section>
+<style>
+    .rounded-image {
+        border-radius: 50%;
+        overflow: hidden;
+    }
 
+    .rounded-div {
+        border-radius: 50%; /* Adjust border-radius as needed */
+        overflow: hidden;
+    }
+</style>
 <section class="newproduct bgwhite p-t-45 p-b-105">
 	<h3 class="m-text5 t-center mb-5">
 		All Categories
 	</h3>
-	<a href='/shop/'><div class="slider">
-		<div class="slide current">
-		  <div class="content">
-			<h1>Men's Wear</h1>
-		  </div>
+	
+	<section class="banner2 bg5 p-t-55 p-b-55">
+		{{prod_category}}
+		{% comment %} <h3 class="m-text5 t-center">
+			{{ prod_category }}ss
+		</h3> {% endcomment %}
+		<div class="">
+			
+			<div class="row" style="width: 100%; margin-left: auto; margin-right: auto">
+				{% for category in categories %}
+				<div class="col-lg-6 col-md-6 col-sm-12"> <!-- Adjusted grid classes for 2 elements in a row -->
+					<div class="m-l-r-auto p-t-15 p-b-15 rounded-div">
+						<div class="pos-relative">
+							<div class="card rounded-div">
+								<a href="/category/{{category.slug}}" class="rounded-image">
+									<img src="{{category.image.url}}" style="width: 100%; min-height:300px; max-height: 300px" class="rounded-image">
+								</a>
+								{% comment %} <p>{{category.title}}</p> {% endcomment %}
+								<p class="price">{{category}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
 		</div>
-		<div class="slide">
-		  <div class="content">
-			<h1>Kids' Wear</h1>
-		  </div>
-		</div>
-	</div>
-	</a>
+		
+		
+		
+	</section>
 	 
 </section>
 
