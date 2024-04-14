@@ -375,7 +375,7 @@ body {
 					<div class="m-l-r-auto p-t-15 p-b-15">
 						<div class="pos-relative">
 							<div class="card zoom-img" style="border-radius:10px;">
-								<a href="/product/{{prod.slug}}"><img src="{{prod.image.url}}" alt="Denim Jeans" style="width: 100%; min-height:300px; max-height: 300px; border-radius:10px"></a>
+								<a href="/product/{{prod.slug}}"><img class="category-img" src="{{prod.image.url}}" alt="Denim Jeans" style="width: 100%; min-height:300px; max-height: 300px; border-radius:10px"></a>
 								<p class="price">{{prod.price}}</p>
 								<p>{{prod.title}}</p>
 								<a href="/product/{{prod.slug}}"><p><button >Check>></button></p></a>
@@ -409,7 +409,7 @@ body {
 						<div class="pos-relative">
 							<div class="card rounded-div">
 								<a href="/category/{{category.slug}}" class="rounded-image">
-									<img class="category-img" src="{{category.image.url}}" style="width: 100%; min-height:300px; max-height: 300px" class="rounded-image">
+									<img src="{{category.image.url}}" style="width: 100%; min-height:300px; max-height: 300px" class="rounded-image">
 								</a>
 								{% comment %} <p>{{category.title}}</p> {% endcomment %}
 								<p class="price">{{category}}</p>
