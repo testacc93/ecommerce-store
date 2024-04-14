@@ -35,22 +35,23 @@ def thank(request):
     order.ref_code = create_ref_code()
     order.save()
     return render(request, 'thankyou.html')
-
 def get_phonepe_creds(request):
 
+    
     data = {
-                'merchantId': 'PGTESTPAYUAT',
+                'merchantKey': settings.MERCHANT_KEY,
+                'merchantId': settings.MERCHANT_ID,
                 'merchantTransactionId': 'MT785058104',
-                'merchantUserId': 'PGTESTPAYUAT',
-                # amount: amount * 100,
-                # 'redirectUrl': `http://127.0.0.1:8000/order-confirm/?order=${order}`,
+                'merchantUserId': settings.MERCHANT_USER_ID,
                 'redirectMode': 'POST',
                 'callbackUrl': 'www.facebook.com',
-                'mobileNumber': '9825454588',
+                'mobileNumber': settings.MOBILE_NUMBER,
                 'paymentInstrument': {
                   'type': 'PAY_PAGE'
                 }
               }
+    print("the data is")
+    print(data)
     return JsonResponse({"data":data})
 
 def create_ref_code():

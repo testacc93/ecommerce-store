@@ -117,4 +117,10 @@ from decouple import config
 STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
+MERCHANT_KEY = config('MERCHANT_KEY')
+MERCHANT_ID = config('MERCHANT_ID')
+MERCHANT_USER_ID = config('MERCHANT_USER_ID')
+MOBILE_NUMBER = config('MOBILE_NUMBER')
+
+# DOMAIN_URL = "http://ec2-35-77-218-174.ap-northeast-1.compute.amazonaws.com"
 DOMAIN_URL = "http://127.0.0.1:8000"

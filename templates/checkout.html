@@ -13,9 +13,16 @@
     .container * {
         font-size: 16px;
     }
-
+    .parent-div{
+      background: #f0f0f08a;
+    }
+    .btn-primary{
+      background-color:#b2b6b5;
+    border:1px #b2b6b5;
+    color: black;
+    }
       </style>
-
+    <div class="parent-div">
     <div class="container">
       <div class="py-5 text-center">
         <h1 style="font-size:30px">Check<span style="font-size:30px; color:blue;">out</span></h1>
@@ -148,7 +155,7 @@
         </div>
       </div>
     </div>
-
+  </div>
 
 
 
@@ -203,10 +210,10 @@
 
               const amount = {{ order.get_total }};
               const order = {{ order }}
-              const merchantKey = '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
+              var merchantKey = '';
               
               let data;
-              fetch('http://127.0.0.1:8000/phonepe/', {
+              fetch('http://ec2-35-77-218-174.ap-northeast-1.compute.amazonaws.com/phonepe/', {
                   method: 'GET'
               })
               .then(response => response.json())
@@ -215,7 +222,9 @@
                   console.log("the data is", data);
 
                   data['amount'] = amount * 100;
-                  data['redirectUrl'] = `http://127.0.0.1:8000/order-confirm/?order=${order}`;
+                  data['redirectUrl'] = `http://ec2-35-77-218-174.ap-northeast-1.compute.amazonaws.com/order-confirm/?order=${order}`;
+                  merchantKey = data['merchantKey']
+                  delete data.merchantKey;
               
                   console.log("the type is", typeof(data))
 
