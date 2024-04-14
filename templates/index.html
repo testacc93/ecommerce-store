@@ -276,6 +276,16 @@ body {
 
     }
   }
+  @media (max-width: 576px) {
+    .category-img {
+      width: 80% !important;
+	  margin-left:auto;
+	  margin-right:auto;
+
+    }
+  }
+
+  
 	</style>
 
 	<!-- Slide1 -->
@@ -399,7 +409,7 @@ body {
 						<div class="pos-relative">
 							<div class="card rounded-div">
 								<a href="/category/{{category.slug}}" class="rounded-image">
-									<img src="{{category.image.url}}" style="width: 100%; min-height:300px; max-height: 300px" class="rounded-image">
+									<img class="category-img" src="{{category.image.url}}" style="width: 100%; min-height:300px; max-height: 300px" class="rounded-image">
 								</a>
 								{% comment %} <p>{{category.title}}</p> {% endcomment %}
 								<p class="price">{{category}}</p>
