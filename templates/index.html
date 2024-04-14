@@ -278,7 +278,7 @@ body {
   }
   @media (max-width: 576px) {
     .category-img {
-      width: 80% !important;
+      width: 70% !important;
 	  margin-left:auto;
 	  margin-right:auto;
 
@@ -374,8 +374,8 @@ body {
 				<div class="col-lg-3 col-md-4 col-sm-6"> <!-- Adjusted grid classes for 4 elements in a row -->
 					<div class="m-l-r-auto p-t-15 p-b-15">
 						<div class="pos-relative">
-							<div class="card zoom-img" style="border-radius:10px;">
-								<a href="/product/{{prod.slug}}"><img class="category-img" src="{{prod.image.url}}" alt="Denim Jeans" style="width: 100%; min-height:300px; max-height: 300px; border-radius:10px"></a>
+							<div class="card zoom-img category-img" style="border-radius:10px;">
+								<a href="/product/{{prod.slug}}"><img class="" src="{{prod.image.url}}" alt="Denim Jeans" style="width: 100%; min-height:300px; max-height: 300px; border-radius:10px"></a>
 								<p class="price">{{prod.price}}</p>
 								<p>{{prod.title}}</p>
 								<a href="/product/{{prod.slug}}"><p><button >Check>></button></p></a>
