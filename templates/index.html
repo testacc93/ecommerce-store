@@ -268,6 +268,14 @@ body {
 	border-radius: 50%; /* Adjust border-radius as needed */
 	overflow: hidden;
 }
+@media (max-width: 576px) {
+    .carousel-img {
+      width: 60% !important;
+	  margin-left:auto;
+	  margin-right:auto;
+
+    }
+  }
 	</style>
 
 	<!-- Slide1 -->
@@ -302,7 +310,7 @@ body {
 							
 							<div class="block2-img zoom-img wrap-pic-w of-hidden pos-relative block2-label{{item.get_label_display}}">
 								<a href="{{item.get_absolute_url}}">
-								<img src="{{item.image.url}}" alt="IMG-PRODUCT" 
+								<img class="carousel-img" src="{{item.image.url}}" alt="IMG-PRODUCT" 
 								style="height: 300px; width:100%; border-radius:200px"></a>
 							</div>
 
