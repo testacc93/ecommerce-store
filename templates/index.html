@@ -188,7 +188,7 @@ body {
 	outline: 0;
 	padding: 12px;
 	color: black;
-	background-color: #748e8bab;
+	background-color: #b2b6b5;
 	text-align: center;
 	cursor: pointer;
 	width: 100%;
@@ -198,12 +198,81 @@ body {
   .card button:hover {
 	opacity: 0.7;
   }
+  .hov1{
+	background-color: white !important;
+	color: black !important;
+	
+}
 
+.zoom-img {
+	{% comment %} width: 300px;
+	height: 300px; {% endcomment %}
+	overflow: hidden;
+	margin: 0 auto;
+}
 
+.zoom-img img {
+	width: 100%;
+	transition: 0.2s all ease-in-out;
+}
+
+.zoom-img:hover img {
+	transform: scale(1.2);
+}
+
+.newproduct{
+	margin-bottom: 2px;
+	padding-bottom: 2px;
+	background:#f0f0f08a;
+}
+.banner2{
+	background-color: #fff;
+	margin-right: 1rem;
+	margin-left: 1rem;
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+.ban_img{
+	height: 400px;
+	width: 100%;
+}
+.ban5_img{
+	height: 400px;
+	width: 100%;
+}
+
+.btn-light {
+	color: #000;
+	background-color: #fff;
+	border-color: #fff;
+	border-radius: 20px;
+}
+.wrap-btn-slide1 a:hover{
+	background-color: whitesmoke;
+	color: #000 !important;
+	opacity: 0.7;
+
+}
+.slide1 button:hover{
+	background-color: white !important;
+	color: black;
+}
+
+.rounded-image {
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.rounded-div {
+	border-radius: 50%; /* Adjust border-radius as needed */
+	overflow: hidden;
+}
 	</style>
 
 	<!-- Slide1 -->
-	<section class="slide1">
+	<div class="parent" style="background:#f0f0f08a">
+	<section class="slide1" >
 		<div class="wrap-slick1">
 			<div class="slick1">
 
@@ -212,41 +281,9 @@ body {
 			</div>
 		</div>
 	</section>
-
-	<!-- Category start -->
-	<style>
-		.hov1{
-			background-color: white !important;
-			color: black !important;
-			
-		}
-
-		.zoom-img {
-            {% comment %} width: 300px;
-            height: 300px; {% endcomment %}
-            overflow: hidden;
-            margin: 0 auto;
-        }
-
-        .zoom-img img {
-            width: 100%;
-            transition: 0.2s all ease-in-out;
-        }
-
-        .zoom-img:hover img {
-            transform: scale(1.2);
-        }
-	</style>
-
-	<!-- New Product -->
-	<style>
-		.newproduct{
-			margin-bottom: 2px;
-			padding-bottom: 2px;
-		}
-	</style>
-	<section class="newproduct bgwhite p-t-45 p-b-105">
-		<div class="container">
+	
+	<section style="background:#f0f0f08a" class="newproduct bgwhite p-t-45 p-b-105">
+		<div class="container" style="background:#f0f0f08a">
 			<div class="sec-title p-b-60">
 				<h3 class="m-text5 t-center">
 					Running Productsss
@@ -266,7 +303,7 @@ body {
 							<div class="block2-img zoom-img wrap-pic-w of-hidden pos-relative block2-label{{item.get_label_display}}">
 								<a href="{{item.get_absolute_url}}">
 								<img src="{{item.image.url}}" alt="IMG-PRODUCT" 
-								style="height: 400px; width:100%; "></a>
+								style="height: 300px; width:100%; border-radius:200px"></a>
 							</div>
 
 							<div class="block2-txt p-t-20">
@@ -305,42 +342,10 @@ body {
 		</div>
 	</section>
 
-	<!-- ------------------Banner2  start ------------------------>
-	<style>
-		.banner2{
-			background-color: #fff;
-			margin-right: 1rem;
-			margin-left: 1rem;
-			margin-bottom: 0 !important;
-			padding-bottom: 0 !important;
-		}
-
-		.ban_img{
-			height: 400px;
-			width: 100%;
-		}
-		.ban5_img{
-			height: 400px;
-			width: 100%;
-		}
-
-		.btn-light {
-			color: #000;
-			background-color: #fff;
-			border-color: #fff;
-			border-radius: 20px;
-		}
-		.wrap-btn-slide1 a:hover{
-			background-color: whitesmoke;
-			color: #000 !important;
-			opacity: 0.7;
-	
-		}
-	</style>
 
 	{% for prod_category, prod_category_value in products_categories.items %}
 
-	<section class="banner2 bg5 p-t-55 p-b-55">
+	<section style="background:#f0f0f08a" class="banner2 bg5 p-t-55 p-b-55">
 		<h3 class="m-text5 t-center">
 			{{ prod_category }}
 			{% comment %} {{ prod_category_value }} {% endcomment %}
@@ -350,12 +355,12 @@ body {
 				{% for prod in prod_category_value %}
 				<div class="col-lg-3 col-md-4 col-sm-6"> <!-- Adjusted grid classes for 4 elements in a row -->
 					<div class="m-l-r-auto p-t-15 p-b-15">
-						<div class="zoom-img pos-relative">
-							<div class="card">
-								<a href="/product/{{prod.slug}}"><img src="{{prod.image.url}}" alt="Denim Jeans" style="width: 100%; min-height:300px; max-height: 300px"></a>
+						<div class="pos-relative">
+							<div class="card zoom-img" style="border-radius:10px;">
+								<a href="/product/{{prod.slug}}"><img src="{{prod.image.url}}" alt="Denim Jeans" style="width: 100%; min-height:300px; max-height: 300px; border-radius:10px"></a>
 								<p class="price">{{prod.price}}</p>
 								<p>{{prod.title}}</p>
-								<p><button>Add to Cart</button></p>
+								<a href="/product/{{prod.slug}}"><p><button >Check>></button></p></a>
 							</div>
 						</div>
 					</div>
@@ -367,40 +372,12 @@ body {
 	{% endfor %}
 
 	
-	<!-- ------------------Banner2  start ------------------------>
-
-	<!-- ------------------Banner4  start ------------------------>
-<!-- Slide1 -->
-
-<style>
-	.slide1 button:hover{
-		background-color: white !important;
-		color: black;
-	}
-</style>
-<br><br>
-<section class="slide1">
-
-	
-	
-</section>
-<style>
-    .rounded-image {
-        border-radius: 50%;
-        overflow: hidden;
-    }
-
-    .rounded-div {
-        border-radius: 50%; /* Adjust border-radius as needed */
-        overflow: hidden;
-    }
-</style>
-<section class="newproduct bgwhite p-t-45 p-b-105">
+<section style="background:#f0f0f08a" class="newproduct bgwhite p-t-45 p-b-105">
 	<h3 class="m-text5 t-center mb-5">
 		All Categories
 	</h3>
 	
-	<section class="banner2 bg5 p-t-55 p-b-55">
+	<section style="background:#f0f0f08a"  class="banner2 bg5 p-t-55 p-b-55">
 		{{prod_category}}
 		{% comment %} <h3 class="m-text5 t-center">
 			{{ prod_category }}ss
@@ -437,7 +414,7 @@ body {
 	
 	<!-- ------------------Banner5  start ------------------------>
 
-	<section class="banner2 bg5 p-t-55 p-b-55">
+	<section style="background:#f0f0f08a" class="banner2 bg5 p-t-55 p-b-55">
 		<h3 class="m-text5 t-center">
 			More Products
 		</h3>
@@ -520,7 +497,7 @@ body {
 	
 
 	<!-- Shipping -->
-	<section class="shipping bgwhite p-t-62 p-b-46">
+	<section style="background:#f0f0f08a" class="shipping bgwhite p-t-62 p-b-46">
 		<div class="flex-w p-l-15 p-r-15">
 			<div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1">
 				<h4 class="m-text12 t-center">
@@ -553,6 +530,7 @@ body {
 			</div>
 		</div>
 	</section>
+</div>
 
 
 	<script>

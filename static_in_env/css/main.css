@@ -510,6 +510,7 @@ iframe {
 ///////////////////////////////////////////////////////////
 */
 .header1 {
+  /* height: 125px; */
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -610,7 +611,7 @@ iframe {
   flex-wrap: wrap;
   width: 100%;
   height: 80px;
-  background-color: white;
+  background-color:#f0f0f0;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -973,7 +974,7 @@ li.sale-noti > a {
   padding-left: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: white;
+  background-color: #f0f0f0;
   display: none;
 }
 
@@ -1058,7 +1059,7 @@ li.sale-noti > a {
 .side-menu .main-menu {margin-bottom: 0;}
 
 .item-menu-mobile {
-  background-color: #dde6da;
+  background-color: #f0f0f08c;
 }
 
 .side-menu .main-menu > li > a {
@@ -1119,7 +1120,7 @@ li.sale-noti > a {
 }
 
 .side-menu .sub-menu {
-  background-color: white;
+  background-color: #b1aeae1a;
   display: none;
 }
 
@@ -2455,4 +2456,8 @@ input.num-product::-webkit-inner-spin-button {
     font-size: 14px;
     font-family: "-apple-system", sans-serif;
 
+  }
+
+  .container{
+    background: #f0f0f08a;
   }

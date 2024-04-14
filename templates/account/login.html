@@ -34,11 +34,20 @@
   font-size: 16px;
   overflow: hidden;
 }
+.container {
+  max-width: 100%;
+}
+
+.btn-primary {
+  background-color:#b2b6b5;
+  border:1px #b2b6b5;
+  color: black;
+}
 </style>
 
 
 <div class="container">
-  <div class="row">
+  <div class="row" style="margin-top: 100px">
 
     <div class="col-md-6 mt-5 offset-3" style="margin-left:auto; margin-right:auto;">
       <h1>{% trans "Sign In" %}</h1>
@@ -63,10 +72,10 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p> {% endco
 {% include "socialaccount/snippets/login_extra.html" %}
 
 {% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}" class="text-primary">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
 
+{% endif %}
+<p>{% blocktrans %}If you have not created an account yet, then please
+  <a href="{{ signup_url }}" class="text-primary">sign up</a> first.{% endblocktrans %}</p>
 <form class="login" method="POST" action="{% url 'account_login' %}" style="margin-bottom:20px">
   {% csrf_token %}
   {{ form|crispy }}

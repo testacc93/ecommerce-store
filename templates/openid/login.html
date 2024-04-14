@@ -4,6 +4,13 @@
 
 {% block head_title %}OpenID Sign In{% endblock %}
 
+<style>
+    .btn-primary {
+        background-color:#b2b6b5;
+        border:1px #b2b6b5;
+        color: black;
+      }
+</style>
 {% block content %}
 
 <h1>{% trans 'OpenID Sign In' %}</h1>
@@ -12,7 +19,7 @@
 <form id="openid_login_form" class="openid_login" method="post" action="{% url 'openid_login' %}">
 {% csrf_token %}
 {{form.as_p}}
-<button type="submit">Sign In</button>
+<button type="submit" style="background-color:#b2b6b5">Sign In</button>
 </form>
 
 {% endblock %}
