@@ -213,7 +213,7 @@
               var merchantKey = '';
               
               let data;
-              fetch('http://ec2-35-77-218-174.ap-northeast-1.compute.amazonaws.com/phonepe/', {
+              fetch('https://aflatmate.com/phonepe/', {
                   method: 'GET'
               })
               .then(response => response.json())
@@ -222,7 +222,7 @@
                   console.log("the data is", data);
 
                   data['amount'] = amount * 100;
-                  data['redirectUrl'] = `http://ec2-35-77-218-174.ap-northeast-1.compute.amazonaws.com/order-confirm/?order=${order}`;
+                  data['redirectUrl'] = `https://aflatmate.com/?order=${order}`;
                   merchantKey = data['merchantKey']
                   delete data.merchantKey;
               
